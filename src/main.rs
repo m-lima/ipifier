@@ -1,6 +1,7 @@
 #![warn(clippy::pedantic)]
 
 mod args;
+mod dns;
 mod ip;
 
 type Result<T = (), E = Error> = std::result::Result<T, E>;
@@ -42,6 +43,9 @@ fn fallible_main() -> Result {
 
 async fn async_main(args: args::Args) -> Result {
     let ip = ip::fetch(args.providers).await.ok_or(Error::NoIp)?;
+    if let Err(error) = dns::update(args.token, args.record, &args.zone_id, ip).await {
+        eprintln!("{error:#?}");
+    }
     Ok(())
 }
 

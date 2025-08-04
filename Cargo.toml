@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-cloudflare-rs = "0.7.0"
+cloudflare = { git = "https://github.com/cloudflare/cloudflare-rs.git", tag = "v0.14.0", version = "0.14.0" }
 reqwest = "0.12.22"
 thiserror = "2.0.12"
 tokio = { version = "1.47.1", features = ["rt"] }
