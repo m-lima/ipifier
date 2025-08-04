@@ -23,5 +23,5 @@
       helper,
       ...
     }@inputs:
-    helper.lib.rust.helper inputs { } ./. "rust_template";
+    helper.lib.rust.helper inputs { } ./. "ipfier";
 }
