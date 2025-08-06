@@ -8,7 +8,11 @@ cloudflare = { git = "https://github.com/cloudflare/cloudflare-rs.git", tag = "v
 reqwest = "0.12.22"
 thiserror = "2.0.12"
 tokio = { version = "1.47.1", features = ["rt"] }
-tracing = { version = "0.1.41", default-features = false, features = ["attributes"] }
-tracing-subscriber = { version = "0.3.19", default-features = false, features = ["registry"] }
+tracing = { version = "0.1.41", default-features = false, features = [
+  "attributes",
+] }
+tracing-subscriber = { version = "0.3.19", default-features = false, features = [
+  "registry",
+] }
 treetrace = "0.1.0"
 url = { version = "2.5.4", default-features = false }

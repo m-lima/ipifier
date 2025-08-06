@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     crane.url = "github:ipetkov/crane";
     fenix = {
       url = "github:nix-community/fenix";
@@ -20,8 +20,10 @@
 
   outputs =
     {
+      self,
+      flake-utils,
       helper,
       ...
     }@inputs:
-    helper.lib.rust.helper inputs { } ./. "ipfier";
+    flake-utils.lib.eachDefaultSystem (system: (helper.lib.rust.helper inputs system ./. { }).outputs);
 }
