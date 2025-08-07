@@ -43,20 +43,21 @@ fn fallible_main() -> Result {
 
 async fn async_main(args: args::Args) -> Result {
     let ip = ip::fetch(args.providers).await.ok_or(Error::NoIp)?;
-    if let Err(error) = dns::update(args.token, args.record, &args.zone_id, ip).await {
-        eprintln!("{error:#?}");
-    }
-    Ok(())
+    dns::update(args.token, args.record, &args.zone_id, ip)
+        .await
+        .map_err(Error::Dns)
 }
 
 #[derive(Debug, thiserror::Error)]
 enum Error {
     #[error("Failed to initialize logging: {0}")]
-    Tracing(#[from] tracing::subscriber::SetGlobalDefaultError),
+    Tracing(tracing::subscriber::SetGlobalDefaultError),
     #[error(transparent)]
     Args(#[from] args::Error),
     #[error("Failed to initialize runtime: {0}")]
     Runtime(std::io::Error),
     #[error("Unable to fetch IP from any provider")]
     NoIp,
+    #[error("Unable to DNS record: {0}")]
+    Dns(dns::Error),
 }
