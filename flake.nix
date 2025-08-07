@@ -25,5 +25,11 @@
       helper,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystem (system: (helper.lib.rust.helper inputs system ./. { }).outputs);
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      (helper.lib.rust.helper inputs system ./. {
+        buildInputs = pkgs: [ pkgs.openssl ];
+        nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
+      }).outputs
+    );
 }
