@@ -664,7 +664,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ipfier"
+name = "ipifier"
 version = "0.1.0"
 dependencies = [
  "cloudflare",
