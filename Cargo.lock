@@ -1556,11 +1556,10 @@ dependencies = [
 
 [[package]]
 name = "treetrace"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1a0a9139e0ed594ef6c4bedb0bf55f1e1de8ea217ff362c55817d2ab21b2ee69"
+checksum = "1b497a695c4045517deec8254f1b99ed93a33cf803841141caf9a889b3ea32c4"
 dependencies = [
- "chrono",
  "rand",
  "tracing",
  "tracing-subscriber",

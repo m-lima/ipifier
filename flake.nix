@@ -27,9 +27,23 @@
     }@inputs:
     flake-utils.lib.eachDefaultSystem (
       system:
-      (helper.lib.rust.helper inputs system ./. {
-        buildInputs = pkgs: [ pkgs.openssl ];
-        nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
-      }).outputs
+      let
+        outputs =
+          (helper.lib.rust.helper inputs system ./. {
+            buildInputs = pkgs: [ pkgs.openssl ];
+            nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
+          }).outputs;
+      in
+      outputs
+      // {
+        packages = outputs.packages // {
+          noTimestamp =
+            (helper.lib.rust.helper inputs system ./. {
+              noDefaultFeatures = true;
+              buildInputs = pkgs: [ pkgs.openssl ];
+              nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
+            }).outputs.packages.default;
+        };
+      }
     );
 }

@@ -24,7 +24,7 @@ fn main() -> std::process::ExitCode {
 fn setup_tracing() -> Result {
     use tracing_subscriber::layer::SubscriberExt as _;
 
-    let layer = treetrace::Layer::new(treetrace::Stderr, false, false);
+    let layer = treetrace::Layer::builder(treetrace::Stderr).build();
     let subscriber = tracing_subscriber::registry().with(layer).with(
         tracing::level_filters::LevelFilter::from_level(tracing::Level::INFO),
     );
