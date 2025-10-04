@@ -1,20 +1,20 @@
 [package]
 name = "ipifier"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 [dependencies]
 cloudflare = { git = "https://github.com/cloudflare/cloudflare-rs.git", tag = "v0.14.0", version = "0.14.0" }
-reqwest = "0.12.22"
-serde = { version = "1.0.219", features = ["derive"] }
-serde_json = "1.0.142"
-thiserror = "2.0.12"
+reqwest = "0.12.23"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+thiserror = "2.0.17"
 tokio = { version = "1.47.1", features = ["rt"] }
 tracing = { version = "0.1.41", default-features = false, features = [
   "attributes",
 ] }
-tracing-subscriber = { version = "0.3.19", default-features = false, features = [
+tracing-subscriber = { version = "0.3.20", default-features = false, features = [
   "registry",
 ] }
 treetrace = { version = "0.1.1", default-features = false }
-url = { version = "2.5.4", default-features = false }
+url = { version = "2.5.7", default-features = false }
