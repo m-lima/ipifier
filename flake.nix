@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     crane.url = "github:ipetkov/crane";
     fenix = {
       url = "github:nix-community/fenix";
@@ -28,21 +28,23 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        outputs =
-          (helper.lib.rust.helper inputs system ./. {
-            buildInputs = pkgs: [ pkgs.openssl ];
-            nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
-          }).outputs;
+        options = {
+          systemLinker = true;
+          buildInputs = pkgs: [ pkgs.openssl ];
+          nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
+        };
+        outputs = (helper.lib.rust.helper inputs system ./. options).outputs;
       in
       outputs
       // {
         packages = outputs.packages // {
           noTimestamp =
-            (helper.lib.rust.helper inputs system ./. {
-              noDefaultFeatures = true;
-              buildInputs = pkgs: [ pkgs.openssl ];
-              nativeBuildInputs = pkgs: [ pkgs.pkg-config ];
-            }).outputs.packages.default;
+            (helper.lib.rust.helper inputs system ./. (
+              options
+              // {
+                noDefaultFeatures = true;
+              }
+            )).outputs.packages.default;
         };
       }
     );
